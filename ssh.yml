@@ -8,15 +8,15 @@
         shell: /bin/bash
         home: /{{ service_account }}
 
-- name: Add serviceaccount user to sudoers
-  lineinfile:
-    dest: /etc/sudoers
-    line: '{{ service_account }}  ALL=(ALL)  NOPASSWD: ALL'
-    backup: yes
-    state: present
+    - name: Add serviceaccount user to sudoers
+      lineinfile:
+        dest: /etc/sudoers
+        line: '{{ service_account }}  ALL=(ALL)  NOPASSWD: ALL'
+        backup: yes
+        state: present
       
- - name: Set up multiple authorized keys
-   authorized_key:
-     user: jenkins_svc
-     state: present
-     key: {{ key }}
+    - name: Set up multiple authorized keys
+      authorized_key:
+        user: jenkins_svc
+        state: present
+        key: "{{ key }}"
