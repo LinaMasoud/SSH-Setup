@@ -1,15 +1,10 @@
 ---
 #Create Service Account local
 - hosts: all
-  vars:
-    ssh_users:
-      - name: user1
-        key: "{{ lookup('file', 'user.pub') }}"
   tasks:
     - name: Add the serviceaccount user with a bash shell
       user:
         name: '{{ service_account }}'
-        shell: /bin/bash
         home: /{{ service_account }}
 
     - name: Add serviceaccount user to sudoers
@@ -23,6 +18,4 @@
       authorized_key:
         user: '{{ service_account }}'
         state: present
-        key: "{{ item.key }}"
-      with_items:
-        - ssh_users
+        key: "{{ key }}"
