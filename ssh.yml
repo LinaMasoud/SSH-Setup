@@ -15,8 +15,8 @@
         backup: yes
         state: present
       
-    - name: Set up multiple authorized keys
+    - name: Set up authorized keys
       authorized_key:
-        user: jenkins_svc
+        user: '{{ service_account }}'
         state: present
         key: "{{ key }}"
