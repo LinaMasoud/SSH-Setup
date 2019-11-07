@@ -2,6 +2,17 @@
 #Create Service Account local
 - hosts: all
   tasks:
+    - name: Disable SELINUX
+      lineinfile:
+      path: /etc/selinux/config
+      regexp: '^SELINUX='
+      line: 'SELINUX=disabled'
+      state: present
+      backup: yes
+      
+    - name: Unconditionally reboot the machine with all defaults
+      reboot:
+      
     - name: Add the serviceaccount user with a bash shell
       user:
         name: '{{ service_account }}'
